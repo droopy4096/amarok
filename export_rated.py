@@ -24,17 +24,16 @@ def getAmarokDBInfo():
             'user':amarokrc.get('MySQL','User'),
             'use_server':amarokrc.get('MySQL','UseServer')} 
     
-## generator for results
 def dbCopyFiles(dst_dir,rating=5):
     adb=getAmarokDBInfo()
     db=MySQLdb.connect(host=adb['host_name'],user=adb['user'],passwd=adb['password'],db=adb['db_name'])
     c=db.cursor()
     c.execute("""SELECT t.title, s.rating, CONCAT(d.lastmountpoint,SUBSTR(u.rpath,2)), u.uniqueid
-                FROM  `statistics` AS s, tracks AS t, urls AS u, devices as d 
-                WHERE s.rating > ?
+                FROM statistics AS s, tracks AS t, urls AS u, devices as d 
+                WHERE s.rating > %s
                 AND s.url = t.url
                 AND u.deviceid = d.id
-                AND s.url=u.id""",rating)
+                AND s.url=u.id""",(rating))
     while (1):
         row = c.fetchone ()
         if row == None:
@@ -43,7 +42,8 @@ def dbCopyFiles(dst_dir,rating=5):
         uuid=row[3][21:]
         print "Exporting %s" % (filename)
         try:
-            shutil.copyfile(unicode(filename,'utf-8'),export_dir+uuid+'.mp3')
+            # shutil.copyfile(unicode(filename,'utf-8'),dst_dir+uuid+'.mp3')
+            shutil.copyfile(unicode(filename,'utf-8'),os.path.join(dst_dir,uuid+'.mp3'))
         except IOError:
             print "ERROR, can't operate on ",filename
 
@@ -68,12 +68,15 @@ if __name__ == '__main__':
     parser.add_argument('--rating',type=int,help="rating",
                         required=False,default=5)
     
-    args=parser.parse_args(sys.argv)
+    args=parser.parse_args(sys.argv[1:])
     dst_dir=args.export_dir
+    print dst_dir
+    if not dst_dir:
+        parser.help()
+        sys.exit(1)
     rating=args.rating
     dbCopyFiles(dst_dir,rating)
     
-    return
 
     ### if len(sys.argv)<4:
        ### print "Usage: ", sys.argv[0], "<csv_file> <base_dir> <output_dir>"
