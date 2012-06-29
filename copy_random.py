@@ -71,7 +71,8 @@ def main(argv):
         del src_list[fn]
         print "Copy ",src_filename," to ", dst_filename
         try:
-            os.makedirs(os.path.join(args.dst_dir,sub_dir))
+            if args.preserve_path:
+                os.makedirs(os.path.join(args.dst_dir,sub_dir))
         except OSError:
             pass
         shutil.copyfile(src_filename,dst_filename)
