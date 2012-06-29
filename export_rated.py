@@ -40,10 +40,13 @@ def dbCopyFiles(dst_dir,rating=5):
             break
         filename=row[2]
         uuid=row[3][21:]
+        dst_filename=os.path.join(dst_dir,uuid+'.mp3')
+        if os.path.exists(dst_filename):
+            print "Skipped ",filename
+            continue
         print "Exporting %s" % (filename)
         try:
-            # shutil.copyfile(unicode(filename,'utf-8'),dst_dir+uuid+'.mp3')
-            shutil.copyfile(unicode(filename,'utf-8'),os.path.join(dst_dir,uuid+'.mp3'))
+            shutil.copyfile(unicode(filename,'utf-8'),dst_filename)
         except IOError:
             print "ERROR, can't operate on ",filename
 
