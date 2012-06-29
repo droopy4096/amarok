@@ -1,0 +1,4 @@
+amarok
+======
+
+Amarok scripts
