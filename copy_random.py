@@ -4,6 +4,7 @@ import sys
 import shutil
 import random
 import os
+import argparse
 
 def main(argv):
     parser = argparse.ArgumentParser(description='Random copy files')
@@ -16,7 +17,7 @@ def main(argv):
     
     args=parser.parse_args(sys.argv[1:])
 
-    src_list=listdir(args.src_dir)
+    src_list=os.listdir(args.src_dir)
     i=0
     while i<args.number:
         fn=random.randint(0,len(src_list)-1)
