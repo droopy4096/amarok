@@ -5,6 +5,7 @@ import shutil
 import random
 import os
 import argparse
+import hashlib
 
 def main(argv):
     parser = argparse.ArgumentParser(description='Random copy files')
@@ -18,16 +19,21 @@ def main(argv):
                         const=True,required=False,default=False)
     parser.add_argument('--preserve-path','-p',help="Preserve sub-path",action='store_const',
                         const=True,required=False,default=False)
+    parser.add_argument('--all','-a',help="copy all",action='store_const',
+                        const=True,required=False,default=False)
+    parser.add_argument('--md5-rename','-5',help="rename-to-md5",action='store_const',
+                        const=True,required=False,default=False)
+    parser.add_argument('--md5-suffix','-s',type=str,help="MD5 renam suffix",
+                        required=False)
 
     
     args=parser.parse_args(sys.argv[1:])
     
     src_list=[]
     
+    
     for src_dir in args.src_dirs:
         if args.recursive:
-            
-        
             for root, dirs, files in os.walk(src_dir, topdown=False):
                 for filename in files:
                     src_list.append((root,filename,root[len(src_dir)+1:],src_dir))
@@ -41,6 +47,9 @@ def main(argv):
         n=len(src_list)
     else:
         n=args.number
+        
+    if args.all:
+        n=len(src_list)
     while i<n:
         fn=random.randint(0,len(src_list)-1)
         full_dir=src_list[fn][0]
@@ -48,6 +57,13 @@ def main(argv):
         sub_dir=src_list[fn][2]
         src_dir=src_list[fn][3]
         src_filename=os.path.join(full_dir,filename)
+
+        if args.md5_rename:
+            m = hashlib.md5()
+            m.update(filename)
+            filename=m.hexdigest()
+            if args.md5_suffix:
+                filename=filename+args.md5_suffix
         if args.preserve_path:
             dst_filename=os.path.join(args.dst_dir,sub_dir,filename)
         else:
