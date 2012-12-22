@@ -49,6 +49,8 @@ def dbCopyFiles(dst_dir,rating=5):
             shutil.copyfile(unicode(filename,'utf-8'),dst_filename)
         except IOError:
             print "ERROR, can't operate on ",filename
+        except UnicodeDecodeError:
+            print "ERROR, (Unicode) can't operate on ",filename
 
 def csvCopyFiles(src_dir,dst_dir,csv_filename):
     list_reader=csv.reader(open(csv_filename,'r'),delimiter=';',quotechar='"')
