@@ -13,14 +13,16 @@ we're renaming them to their md5 checksums to avoid collisions.
 
 Typical usecase::
 
-  ## export everything with rating higher than 3.5 stars:
-  $ python export_rated.py --rating=7 /media/MyDevice
-  ## add some random songs from my collection for a good measure:
-  $ python copy_random.py -R5 -s .mp3 -n 50 /mnt/music/MyCollection /media/MyDevice
+      ## export everything with rating higher than 3.5 stars:
+      $ python export_rated.py --rating=7 /media/MyDevice
+      ## add some random songs from my collection for a good measure:
+      $ python copy_random.py -R5 -s .mp3 -n 50 /mnt/music/MyCollection /media/MyDevice
+
 
 As a result - /media/MyDevice will contain a number of .mp3's within root directory of the form::
 
-  aaeca6fdeecd1425a0aadeb1ad81b5a0.mp3
+       aaeca6fdeecd1425a0aadeb1ad81b5a0.mp3
+
 
 Now vehicle entertainment system can quickly scan the device and have no issues with file names.
 
