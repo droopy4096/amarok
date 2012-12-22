@@ -29,40 +29,44 @@ Now vehicle entertainment system can quickly scan the device and have no issues 
 copy_random.py
 --------------
 
-usage: copy_random.py [-h] [--number NUMBER] [--recursive] [--preserve-path]
-                      [--all] [--md5-rename] [--md5-suffix MD5_SUFFIX]
-                      src_dirs [src_dirs ...] <dst_dir>
+::
 
-Random copy files
+    usage: copy_random.py [-h] [--number NUMBER] [--recursive] [--preserve-path]
+                          [--all] [--md5-rename] [--md5-suffix MD5_SUFFIX]
+                          src_dirs [src_dirs ...] <dst_dir>
 
-positional arguments:
-  src_dirs              Source dir
-  <dst_dir>             Source dir
+    Random copy files
 
-optional arguments:
-  -h, --help            show this help message and exit
-  --number NUMBER, -n NUMBER
-                        number of files to copy
-  --recursive, -R       recursive
-  --preserve-path, -p   Preserve sub-path
-  --all, -a             copy all
-  --md5-rename, -5      rename-to-md5
-  --md5-suffix MD5_SUFFIX, -s MD5_SUFFIX
-                        MD5 renam suffix
+    positional arguments:
+      src_dirs              Source dir
+      <dst_dir>             Source dir
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      --number NUMBER, -n NUMBER
+                            number of files to copy
+      --recursive, -R       recursive
+      --preserve-path, -p   Preserve sub-path
+      --all, -a             copy all
+      --md5-rename, -5      rename-to-md5
+      --md5-suffix MD5_SUFFIX, -s MD5_SUFFIX
+                            MD5 renam suffix
 
 export_rated.py
 ---------------
 
+::
 
-usage: export_rated.py [-h] [--rating RATING] <export_dir>
+    usage: export_rated.py [-h] [--rating RATING] <export_dir>
 
-Amarok MP3 export util
+    Amarok MP3 export util
 
-positional arguments:
-  <export_dir>     export dir
+    positional arguments:
+      <export_dir>     export dir
 
-optional arguments:
-  -h, --help       show this help message and exit
-  --rating RATING  rating
+    optional arguments:
+      -h, --help       show this help message and exit
+      --rating RATING  rating
+
 
 
